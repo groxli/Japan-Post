@@ -1,0 +1,110 @@
+-------------------
+Total Glyphs (including numbers, etc.)
+-------------------
+mysql> select count(*) from address_glyph;
++----------+
+| count(*) |
++----------+
+|  1389876 |
++----------+
+1 row in set (0.79 sec)
+
+Glyphs appearing 8 times or less:
+ select count(*), glyph from address_glyph group by glyph order by count desc;
+996 glyphs appear 8 times or less
+
+Glyphs appearing 1000 times or more:
+select count(*) as thecount, glyph from address_glyph group by glyph order by thecount;
+
+
+
+-------------------
+Religious Kanji
+-------------------
+mysql> SELECT count(*) FROM address_glyph WHERE glyph = '寺';+----------+
+| count(*) |
++----------+
+|     3017 |
++----------+
+1 row in set (1.06 sec)
+
+mysql> SELECT count(*) FROM address_glyph WHERE glyph = '仏';
++----------+
+| count(*) |
++----------+
+|      100 |
++----------+
+1 row in set (1.05 sec)
+
+mysql> SELECT count(*) FROM address_glyph WHERE glyph = '神';
++----------+
+| count(*) |
++----------+
+|     5414 |
++----------+
+1 row in set (1.04 sec)
+
+mysql> SELECT count(*) FROM address_glyph WHERE glyph = '社';
++----------+
+| count(*) |
++----------+
+|      221 |
++----------+
+1 row in set (1.00 sec)
+
+myhost:data nate j$ less KENOUT.csv | grep '神奈川県' | wc
+    2272    4903  352598
+
+therefor 5414 - 2272 = 3142
+SELECT glyph, count(*) AS theFreq FROM kanji GROUP BY glyph ORDER BY theFreq DESC
+
+total religious kanji: 100 + 3142 + 3017 + 221 = 6480
+
+
+Filtering for Kobe City:
+myhost:data nate j$ less KENOUT.csv | grep 神戸 | wc
+     880    2654  136765
+
+3142 - 880 = 2262
+
+select count(distinct glyph) from address_glyph union select distinct new_glyph from kanji
+
+
+select count(*) as theCount, glyph from address_glyph group by glyph order by theCount desc
+
+
+SELECT count(*) AS thecount, td.kanji, pa.todofuken_id FROM postal_address pa, todofuken td WHERE (pa.addr_2 like '%子%' OR pa.addr_1 LIKE '%子%') AND pa.todofuken_id = td.todofuken_id GROUP BY pa.todofuken_id ORDER BY thecount DESC;
+SELECT count(*) AS thecount, td.kanji, pa.todofuken_id FROM postal_address pa, todofuken td WHERE (pa.addr_2 like '%女%' OR pa.addr_1 LIKE '%女%') AND pa.todofuken_id = td.todofuken_id GROUP BY pa.todofuken_id ORDER BY thecount DESC;
+SELECT count(*) AS thecount, td.kanji, pa.todofuken_id FROM postal_address pa, todofuken td WHERE (pa.addr_2 like '%男%' OR pa.addr_1 LIKE '%男%') AND pa.todofuken_id = td.todofuken_id GROUP BY pa.todofuken_id ORDER BY thecount DESC;
+
+
+
+
+SELECT
+count(*) AS thecount,
+td.todofuken_id,
+td.kanji,
+ag.glyph
+FROM
+address_glyph ag,
+postal_address pa,
+todofuken td
+WHERE
+ag.address_id = pa.address_id
+AND
+pa.todofuken_id = td.todofuken_id
+GROUP BY
+ag.glyph
+ORDER BY
+thecount DESC,
+td.todofuken_id ASC
+LIMIT
+100
+
+SELECT count(*) AS thecount, td.kanji, pa.addr_1 FROM postal_address pa, todofuken td WHERE pa.todofuken_id = td.todofuken_id GROUP BY td.todofuken_id ORDER BY thecount DESC LIMIT 10;
+
+
+
+SELECT count(*) AS thecount, td.kanji, pa.todofuken_id FROM postal_address pa, todofuken td WHERE (pa.addr_2 like '%母%' OR pa.addr_1 LIKE '%母%') AND pa.todofuken_id = td.todofuken_id GROUP BY pa.todofuken_id ORDER BY  pa.todofuken_id ASCe
+SELECT count(*) AS thecount, td.kanji, pa.todofuken_id FROM postal_address pa, todofuken td WHERE (pa.addr_2 like '%父%' OR pa.addr_1 LIKE '%父%') AND pa.todofuken_id = td.todofuken_id GROUP BY pa.todofuken_id ORDER BY  pa.todofuken_id ASC;
+SELECT count(*) AS thecount, td.kanji, pa.todofuken_id FROM postal_address pa, todofuken td WHERE (pa.addr_2 like '%孫%' OR pa.addr_1 LIKE '孫%') AND pa.todofuken_id = td.todofuken_id GROUP BY pa.todofuken_id ORDER BY pa.todofuken_id ASC;

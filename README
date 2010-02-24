@@ -1,0 +1,66 @@
+FILES CONTAINED IN THIS PROJECT
+
+./README - this file.
+
+
+====================================
+PRESENTATION FILE
+====================================
+presentation/visualizing-japan_final_20100224.pdf - collection of the slides presented at PechaKucha Night Tokyo, February 24, 2010.
+
+
+====================================
+SCHEMA FILES
+====================================
+schema/analysis_mysql_model.mwb - A file compatible with MySQL Workbench.  Allows you to see data model entities, attributes, indexes, procedures, etc. in more human-readable terms than the DDL.
+
+schema/yusei_ERD.PDF - An entity relationship diagram showing what objects are in the data model.
+
+schema/yusei_generate.sql - The DDL script for generating the objects in the mysql database.
+
+
+====================================
+EXTRACTED DATA
+====================================
+extracts/unique_glyphs.csv - used for slides 10 and 11 of 2010/02/24 presentation.
+extracts/only_occuring_once.csv - used for slides 7 and 8 of 2010/02/24 presentation.
+extracts/tokyo_kanji.csv - used for slide 15 (not 16) of 2010/02/24 presentation.
+extracts/1000_count_or_more.csv - used for slide 9 of 2010/02/24 presentation.
+extracts/jpost_vs_joyo_lists.csv - used for slides 7 and 8 of 2010/02/24 presentation.
+extracts/color_count.csv - used for slide 13 of 2010/02/24 presentation.
+extracts/tokyo_unique_kanji.csv -  used for slide 16 of 2010/02/24 presentation.
+extracts/ko_kanji.csv - used for slides 17 and 18 of 2010/02/24 presentation.
+extracts/onnna.csv - used for slides 17 and 18 of 2010/02/24 presentation.
+extracts/otoko.csv - used for slides 17 and 18 of 2010/02/24 presentation.
+extracts/mago.csv (NOT used in 2010/02/24 presentation.)
+extracts/chichi.csv (NOT used in 2010/02/24 presentation.)
+extracts/haha.csv (NOT used in 2010/02/24 presentation.)
+extracts/glyphs_appearing_8_times_or_less.csv
+extracts/kanji_appearing_1000_times_or_more.csv
+
+
+====================================
+SCRIPTS FOR LOADING/EXTRACTING DATA
+====================================
+In order to recreate the analysis model, you'll want to make sure you have the KEN_ALL.csv file from the Japan Post.  Available at: http://www.post.japanpost.jp/zipcode/download.html
+
+The scripts are located in the scripts/ directory.  Make sure the #! declaration points to your php binary.  Also don't forget to check database settings.
+
+Run the load scripts in this order:
+1) load_todofuken.php
+2) load_joyo_kanji.php
+3) load_addresses.php
+
+Extract data with these scripts:
+get_colors.php - generates extracts/color_count.csv.
+get_kanji.php - generates extracts/unique_glyphs.csv.
+get_postkanji_by_grades.php - currently not used.
+get_tokyo_kanji.php - generates extracts/tokyo_kanji.csv
+get_tokyo_unique_kanji.php - generates/extracts/tokyo_unique_kanji.csv
+
+process.log - the log of the scripts' activities.
+sqlnotes.txt - some other notes about some SQL queries used or tried out.
+compare_kanji_unions.php - currently not used.
+
+
+EOF
